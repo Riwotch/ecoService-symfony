@@ -2,18 +2,158 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="mdbootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="mdbootstrap/css/mdb.min.css">
+        <link rel="stylesheet" href="mdbootstrap/css/style.css">
+        <link rel="stylesheet" href="fontawesome/css/all.css">
+
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+
         {% endblock %}
 
+        <script type="text/javascript" src="mdbootstrap/js/jquery.min.js"></script>
+        <script type="text/javascript" src="mdbootstrap/js/popper.min.js"></script>
+        <script type="text/javascript" src="mdbootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="mdbootstrap/js/mdb.min.js"></script>
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+
         {% endblock %}
     </head>
+
     <body>
+        <header>
+            <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav success-color navbar-dark">
+                <a href="{{ path('home') }}" class="navbar-brand logo"><img src="ressources/img/Logo4.png"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicNav" aria-controls="basicNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="basicNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link configuration" href="{{ path("product.index") }}"><i class="fas fa-shopping-cart"></i><B>Produits</B></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link configuration" href="{{ path("service.index") }}"><i class="fas fa-envelope"></i><B>Services</B></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="collapse navbar-collapse justify-content-end" id="basicNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link configuration" href=""><i class="fas fa-camera"></i><B>Panier</B></a>
+                        </li>
+
+
+                        {% if not app.user %}
+                            <li class="nav-item">
+                                <a class="nav-link configuration" href="{{ path('security.login') }}"><i class="fas fa-envelope"></i><B>Connexion</B></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link configuration" href="{{ path('security.registration') }}"><i class="fas fa-envelope"></i><B>Inscription</B></a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-mdb-toggle="dropdown" aria-expanded="false">{{ app.user.username }}
+                                </a>
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('security.logout') }}">Deconnexion</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+
+            </nav>
+            {% block sidebar %}
+
+            {% endblock %}
+        </header>
         {% block body %}{% endblock %}
+
+        <footer class="page-footer text-center text-md-left bg-success pt-0 pt-3">
+            <!--Footer Links-->
+            <div class="container mt-5 mb-4 text-center text-md-left">
+                <div class="row mt-3">
+
+                    <!--First column-->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Eco-service</strong>
+                        </h6>
+                        <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, voluptatibus. Aut voluptates assumenda non eius animi, sed ratione aspernatur adipisci facilis, cum voluptatem perferendis labore fuga officiis ullam hic soluta.</p>
+                    </div>
+                    <!--/.First column-->
+
+                    <!--Second column-->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Produits</strong>
+                        </h6>
+                        <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="#!">Tous les produits</a>
+                        </p>
+                        <p>
+                            <a href="#!">Meilleures ventes</a>
+                        </p>
+                    </div>
+                    <!--/.Second column-->
+
+                    <!--Third column-->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Navigation</strong>
+                        </h6>
+                        <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="{{ path("home") }}">Accueil</a>
+                        </p>
+                        <p>
+                            <a href="#!">Découvrez Eco-service</a>
+                        </p>
+                        <p>
+                            <a href="#!">Demande de devis</a>
+                        </p>
+                    </div>
+                    <!--/.Third column-->
+
+                    <!--Fourth column-->
+                    <div class="col-md-4 col-lg-3 col-xl-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Contact</strong>
+                        </h6>
+                        <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p><a href="contact.html">Ecrivez-nous ici</a></p>
+                    </div>
+                    <!--/.Fourth column-->
+
+                </div>
+            </div>
+            <!--/.Footer Links-->
+
+            <!-- Copyright-->
+            <div class="footer-copyright py-3 text-center">
+                <div class="container-fluid">
+                    © 2020 Copyright <a href="index.html" target="_blank">eco-service</a>
+                </div>
+            </div>
+            <!--/.Copyright -->
+
+        </footer>
     </body>
 </html>

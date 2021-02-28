@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Accueil
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    <div class="container text-center">
+        <h2>Bienvenue sur Eco-Service</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet blanditiis cumque, eius ipsum itaque laborum laudantium nostrum qui, quia ratione rem sit tempora. Aperiam consectetur dolore enim exercitationem provident!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci culpa doloremque dolorum laudantium molestias natus nisi qui, quod, recusandae rerum soluta totam velit vero? Inventore nihil, veniam! Fugiat, laboriosam nesciunt.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto id iste libero magnam maiores officiis sequi voluptas voluptates. A corporis impedit magni, minus quae quibusdam vitae voluptatem. Beatae, molestiae.</p>
+    </div>
+    <div class="container mt-xl-5 mb-xl-5">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card mb-3">
+                    <a href="{{ path("product.index") }}">
+                        <img
+                                src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                                class="card-img-top"
+                                alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Nos produits</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <a href="{{ path("service.index") }}">
+                        <img
+                                src="https://mdbootstrap.com/img/new/slides/042.jpg"
+                                class="card-img-top"
+                                alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Nos services</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
