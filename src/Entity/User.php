@@ -2,20 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\CustomerRepository;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  *     fields={"mail"},
  *     message="L'email indiqué est déjà utilisé !"
  * )
  */
-class Customer implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -81,6 +83,11 @@ class Customer implements UserInterface
     private $phone;
 
     /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -89,6 +96,16 @@ class Customer implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $modified_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -251,9 +268,20 @@ class Customer implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return ['ROLE_CUSTOMER'];
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles =$roles;
+        return $this;
     }
 
     public function getSalt()
@@ -261,7 +289,7 @@ class Customer implements UserInterface
         // TODO: Implement getSalt() method.
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         // TODO: Implement getUsername() method.
         return $this->first_name . ' ' . strtoupper($this->last_name);
@@ -270,5 +298,35 @@ class Customer implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

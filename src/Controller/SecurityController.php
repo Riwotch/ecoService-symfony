@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationType;
-use App\Entity\Customer;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,17 +23,17 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager,
     UserPasswordEncoderInterface $encoder): Response
     {
-        $customer = new Customer();
-        $form = $this->createForm(RegistrationType::class, $customer);
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $hash = $encoder->encodePassword($customer, $customer->getPassword());
-            $customer->setPassword($hash);
-            $customer->setCreatedAt(new \DateTime('now'));
-            $customer->setModifiedAt(new \DateTime('now'));
-            $manager->persist($customer);
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            $user->setCreatedAt(new \DateTime('now'));
+            $user->setModifiedAt(new \DateTime('now'));
+            $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('security.login');
         }
