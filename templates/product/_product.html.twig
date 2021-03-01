@@ -4,7 +4,7 @@
         <div class="card-body">
             <h5 class="card-title"><a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a></h5>
             <p class="card-text"> {{ product.price }} €</p>
-            <input type="submit" value="Ajouter au panier">
+            <a href="{{ path('cart.add', {id: product.id}) }}" class="btn btn-success">Ajouter au panier</a>
         </div>
     </div>
 </div>
