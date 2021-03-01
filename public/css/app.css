@@ -90,6 +90,10 @@ hr {
     margin-left: 200px;
 }
 
+.mrg-top{
+    margin-top: 120px !important;
+}
+
 h1 {
     font-size: 32px;
     padding: 40px 0px;

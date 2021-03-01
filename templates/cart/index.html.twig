@@ -24,61 +24,63 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for item in items %}
-                        <tr>
-                            <td class="col-sm-8 col-md-6">
-                                <div class="media">
-                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ item.img }}" style="width: 72px; height: 72px;"> </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="{{ path('product.show',{'id': item.id, 'slug': '' } ) }}">{{ item.name }}</a></h4>
-                                        <h5 class="media-heading"> par <a href="#">Eco-Service</a></h5>
-                                    </div>
-                                </div></td>
-                            <td class="col-sm-1 col-md-1" style="text-align: center">
-                                <input type="number" class="form-control" value="{{ item.qty }}">
-                            </td>
-                            <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.price }} €</strong></td>
-                            <td class="col-sm-1 col-md-1 text-center">
-                                <strong>
-                                    {{ item.subtotal }} €
-                                </strong>
-                            </td>
-                            <td class="col-sm-1 col-md-1">
-                                <a href="{{ path('cart.remove', {'id': item.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            <td>   </td>
-                            <td>   </td>
-                            <td>   </td>
-                            <td><h5>Sous-total</h5></td>
-                            <td class="text-right"><h5><strong>{{ total }} €</strong></h5></td>
-                        </tr>
-                        <tr>
-                            <td>   </td>
-                            <td>   </td>
-                            <td>   </td>
-                            <td><h5>Frais de port</h5></td>
-                            <td class="text-right"><h5><strong>$6.94</strong></h5></td>
-                        </tr>
-                        <tr>
-                            <td>   </td>
-                            <td>   </td>
-                            <td>   </td>
-                            <td><h3>Total</h3></td>
-                            <td class="text-right"><h3><strong> {{ total + 6.94 }} €</strong></h3></td>
-                        </tr>
-                        <tr>
-                            <td><button type="button" class="btn btn-primary"> Mettre à jour le panier </button></td>
-                            <td>   </td>
-                            <td>   </td>
-                            <td>
-                                <a href="{{ path('product.index') }}" class="btn btn-secondary"> Articles </a></td>
-                            <td>
-                                <button type="button" class="btn btn-success"> Paiement </button>
-                            </td>
-                        </tr>
+                        <form action="POST">
+                            {% for item in items %}
+                                <tr>
+                                    <td class="col-sm-8 col-md-6">
+                                        <div class="media">
+                                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ item.img }}" style="width: 72px; height: 72px;"> </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><a href="{{ path('product.show',{'id': item.id, 'slug': '' } ) }}">{{ item.name }}</a></h4>
+                                                <h5 class="media-heading"> par <a href="#">Eco-Service</a></h5>
+                                            </div>
+                                        </div></td>
+                                    <td class="col-sm-1 col-md-1" style="text-align: center">
+                                        <input type="number" name="idQty{{ item.id }}" class="form-control" value="{{ item.qty }}">
+                                    </td>
+                                    <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.price }} €</strong></td>
+                                    <td class="col-sm-1 col-md-1 text-center">
+                                        <strong>
+                                            {{ item.subtotal }} €
+                                        </strong>
+                                    </td>
+                                    <td class="col-sm-1 col-md-1">
+                                        <a href="{{ path('cart.remove', {'id': item.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                        </form>
+                                <tr>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td><h5>Sous-total</h5></td>
+                                    <td class="text-right"><h5><strong>{{ total }} €</strong></h5></td>
+                                </tr>
+                                <tr>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td><h5>Frais de port</h5></td>
+                                    <td class="text-right"><h5><strong>$6.94</strong></h5></td>
+                                </tr>
+                                <tr>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td><h3>Total</h3></td>
+                                    <td class="text-right"><h3><strong> {{ total + 6.94 }} €</strong></h3></td>
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn btn-primary"> Mettre à jour le panier </button></td>
+                                    <td>   </td>
+                                    <td>   </td>
+                                    <td>
+                                        <a href="{{ path('product.index') }}" class="btn btn-secondary"> Articles </a></td>
+                                    <td>
+                                        <a href="{{ path('cart.validation', {id: user.id}) }}" class="btn btn-success"> Paiement </a>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                 {% else %}
@@ -143,13 +145,16 @@
                             <td>
                                 <a href="{{ path('product.index') }}" class="btn btn-secondary"> Articles </a></td>
                             <td>
-                                <button type="button" class="btn btn-success"> Paiement </button>
+                                {% if(app.user) %}
+                                    <a href="{{ path('cart.index') }}" class="btn btn-success"> Paiement </a>
+                                {% else %}
+                                    <a href="{{ path('security.login') }}" class="btn btn-success"> Se connecter </a>
+                                {% endif %}
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 {% endif %}
-
             </div>
         </div>
     </div>

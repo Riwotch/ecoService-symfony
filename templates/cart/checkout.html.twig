@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Valider commande
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="container mt-xl-5 mb-xl-5">
+        <div style="margin-top: 125px;"></div>
+        <ul class="nav nav-tabs nav-justified md-tabs bg-success " id="myTabJust" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
+                   aria-selected="true">Adresse</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab" aria-controls="profile-just"
+                   aria-selected="false">Paiement</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just"
+                   aria-selected="false">Confirmation</a>
+            </li>
+        </ul>
+
+        <div class="tab-content card pt-5" id="myTabContentJust">
+            <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        {{ form_start(form) }}
+                        {{ form_row(form.address1) }}
+                        {{ form_row(form.address2) }}
+                        <div class="row">
+                            <div class="col">{{ form_row(form.city) }}</div>
+                            <div class="col">{{ form_row(form.zip_code) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(form.phone) }}</div>
+                            <div class="col">{{ form_row(form.mail) }}</div>
+                        </div>
+                        {{ form_row(form.country) }}
+                        <div class="row justify-content-center">
+                            <button href="{{ path('cart.validation', {id: user.id}) }}" class="btn btn-outline-success btn-sm center">Editer</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="row" style="">
+                            <div class="checkout_details">
+                                <div class="col justify-content-center">
+                                    <dl class="dl-horizontal">
+                                        <dt>Nom utilisateur:<span></span></dt>
+                                        <dd>{{ user.username }}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Adresse:<span></span></dt>
+                                        <dd>{{ user.address1 |nl2br }} <br> {{ user.address2 |nl2br }} <br> {{ user.zipCode }} {{ user.city }}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Pays:<span></span></dt>
+                                        <dd><b>{{ user.country|upper }}</b></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Télephone:<span></span></dt>
+                                        <dd>{{ user.phone }}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Email:<span></span></dt>
+                                        <dd>{{ user.mail }}</dd>
+                                    </dl>
+                                    <div>
+                                        {% if(hasFullProfile) %}
+                                            <a class="btn btn-success next-step btn-sm" data-toggle="modal" data-target="#myModal" >Suivant</a>
+                                        {% else %}
+                                            <div class="alert alert-warning" role="alert">
+                                                Profil imcomplet veuillez editer votre adresse !
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1
+                    labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
+                    beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                    vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+                    helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes
+                    anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
+                    scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+            </div>
+            <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
+                <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro
+                    fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
+                    skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
+                    gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork
+                    biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl
+                    craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
