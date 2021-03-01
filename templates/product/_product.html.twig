@@ -1,8 +1,8 @@
-<div class="card mb-4">
+<div class="card mb-4" style="width: 18rem">
     <div class="card-body">
-        <img src="{{ product.img }}" class="card-img-top" alt="...">
+        <img src="{{ product.img }}" class="card-img-top card__img" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
+            <h5 class="card-title"><a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a></h5>
             <p class="card-text"> {{ product.price }} €</p>
             <input type="submit" value="Ajouter au panier">
         </div>

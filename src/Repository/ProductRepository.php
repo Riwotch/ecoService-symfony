@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,15 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+
+    public function findFourLatest():array
+    {
+        $this->createQueryBuilder('p')
+            ->orderBy('p.created_at', 'DESC')
+        ->setMaxResults(4);
+    }
+
+
 
     // /**
     //  * @return Product[] Returns an array of Product objects
