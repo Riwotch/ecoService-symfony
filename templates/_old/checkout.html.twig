@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Valider commande
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="js/tabs-checkout.js"></script>
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="container mt-xl-5 mb-xl-5">
+        <div style="margin-top: 125px;"></div>
+        <ul class="nav nav-tabs nav-justified md-tabs bg-success " id="myTabJust" role="tablist">
+            <li class="nav-item">
+                <h3>Validation</h3>
+            </li>
+        </ul>
+        <div class="tab-content card pt-5" id="myTabContentJust">
+            <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4><b>Adresse de livraison</b></h4>
+                    </div></div>
+                <div class="row">
+                    <div class="col-md-6 ">
+                        {{ form_start(formAddr) }}
+                        {{ form_row(formAddr.address1) }}
+                        {{ form_row(formAddr.address2) }}
+                        <div class="row">
+                            <div class="col">{{ form_row(formAddr.city) }}</div>
+                            <div class="col">{{ form_row(formAddr.zip_code) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(formAddr.phone) }}</div>
+                            <div class="col">{{ form_row(formAddr.mail) }}</div>
+                        </div>
+                        {{ form_row(formAddr.country) }}
+                        <div class="row justify-content-center">
+                            <button href="{{ path('cart.validation', {id: user.id}) }}" class="btn btn-outline-success btn-sm center">Editer</button>
+                        </div>
+                        {{ form_end(formAddr) }}
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="row" style="">
+                            <div class="checkout_details">
+                                <div class="col justify-content-center">
+                                    <dl class="dl-horizontal">
+                                        <dt>Nom utilisateur:<span></span></dt>
+                                        <dd>{{ user.username }}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Adresse:<span></span></dt>
+                                        <dd>{{ user.address1 |nl2br }} <br> {{ user.address2 |nl2br }} <br> {{ user.zipCode }} {{ user.city }}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Pays:<span></span></dt>
+                                        <dd><b>{{ user.country|upper }}</b></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Télephone:<span></span></dt>
+                                        <dd>{{ user.phone }}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Email:<span></span></dt>
+                                        <dd>{{ user.mail }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <form action="">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="radio-inline"><input type="radio" name="optradio">Carte de crédit</label>
+                            <div class="form-check">
+                                <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="visa-card" value="visa">
+                                <label for="visa-card">
+                                    <img alt="Credit Card Logos" title="Credit Card Logos"
+                                         src="http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_8.gif"
+                                         width="65" height="41" border="0" />
+                                </label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="mastercard" value="mastercard">
+                                <label for="mastercard">
+                                    <img alt="Credit Card Logos" title="Credit Card Logos"
+                                         src="http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_4.gif"
+                                         width="65" height="41" border="0" />
+                                </label>
+
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="american-express" value="american-express">
+                                <label for="american-express">
+                                    <img alt="Credit Card Logos" title="Credit Card Logos"
+                                         src="http://www.credit-card-logos.com/images/american_express_credit-card-logos/american_express_logo_7.gif"
+                                         width="65" height="41" border="0" />
+                                </label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="discover" value="discover">
+                                <label for="discover">
+                                    <img alt="Credit Card Logos" title="Credit Card Logos"
+                                         src="http://www.credit-card-logos.com/images/discover_credit-card-logos/discover_network1.jpg"
+                                         width="65" height="41" border="0" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="name_of_card col-sm-4 p_rm" >
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nom sur la carte</label>
+                                        <input required type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="expir_date col-sm-6 p_rm">
+                                    <label for="expir-date">Date d'expiration</label>
+                                    <div class="form-group col-sm-6 p_rm" id="expir-date">
+                                        <select id="expir-date" class="form-control">
+                                            <option>Mois</option>
+                                            <option>01</option>
+                                            <option>02</option>
+                                            <option>03</option>
+                                            <option>04</option>
+                                            <option>05</option>
+                                            <option>06</option>
+                                            <option>07</option>
+                                            <option>08</option>
+                                            <option>09</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <select id="expir-date" class="form-control">
+                                                <option>Année</option>
+                                                <option>2021</option>
+                                                <option>2022</option>
+                                                <option>2023</option>
+                                                <option>2025</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="name_of_card">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Numéro carte</label>
+                                    <input required type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% if(hasFullProfile) %}
+                    <a href="" class="btn btn-success float-center" data-toggle="modal" data-target="#myModal" >Valider la commande</a>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        Profil imcomplet veuillez editer votre adresse !
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
