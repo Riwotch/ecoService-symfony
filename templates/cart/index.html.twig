@@ -79,7 +79,7 @@
                                         <a href="{{ path('product.index') }}" class="btn btn-secondary"> Articles </a></td>
                                     <td>
                                         {% if(app.user) %}
-                                            <a href="{{ path('cart.validation', {id: user.id}) }}" class="btn btn-success"> Paiement </a>
+                                            <a href="{{ path('cart.confirm', {id: user.id}) }}" class="btn btn-success"> Paiement </a>
                                         {% else %}
                                             <a href="{{ path('security.login') }}" class="btn btn-success"> Paiement </a>
                                         {% endif %}

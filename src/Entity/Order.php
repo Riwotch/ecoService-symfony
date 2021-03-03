@@ -40,6 +40,26 @@ class Order
      */
     private $order_status;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=512)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $modified_at;
+
+    public function __construct()
+    {
+        $this->modified_at = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +109,42 @@ class Order
     public function setOrderStatus(?OrderStatus $order_status): self
     {
         $this->order_status = $order_status;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modified_at;
+    }
+
+    public function setModifiedAt(\DateTimeInterface $modified_at): self
+    {
+        $this->modified_at = $modified_at;
 
         return $this;
     }

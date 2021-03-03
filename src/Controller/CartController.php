@@ -2,13 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
+use App\Entity\OrderStatus;
+use App\Entity\Product;
 use App\Entity\User;
 use App\Form\AddressFormType;
+use App\Repository\OrderStatusRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -123,93 +129,204 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/confirm/{id}", name="cart.validation", methods="GET|POST")
+     * @Route("/cart/confirm/{id}", name="cart.confirm", methods="GET|POST")
      * @param int $id
      * @param Request $request
      * @param SessionInterface $session
      * @return Response
      */
-    public function validation(int $id, Request  $request, SessionInterface $session): Response
+    public function prepareOrder(int $id, Request  $request, SessionInterface $session): Response
     {
+        //si panier vide
         if (empty($session->get('cartWithData',[])))
             return $this->redirectToRoute('cart.index');
-
         //retourne les info de de l'utilisteur connecté
         if ($id != $this->security->getUser()->getId())
             return $this->redirectToRoute('cart.index');
 
-        $user = $this->userRepo->find($id);
 
+        $user = $this->userRepo->find($id);
         $hasFullProfile = false;
         if($user->getCity() && $user->getAddress1() && $user->getCountry() && $user->getZipCode())
             $hasFullProfile = true;
 
-        $form = $this->createForm(AddressFormType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        // Handle form edit address
+        $formAddr = $this->createForm(AddressFormType::class, $user);
+        $formAddr->handleRequest($request);
+        if ($formAddr->isSubmitted() && $formAddr->isValid()){
             $hasFullProfile = true;
             $this->manager->flush();
-            $form = $this->createForm(AddressFormType::class, $user);
-            $this->redirectToRoute('cart.validation', ['id' => $id]);
+            $formAddr = $this->createForm(AddressFormType::class, $user);
+            $this->redirectToRoute('cart.confirm', ['id' => $id]);
+        }
+
+        // Handle Form card data for order validation
+        $formCardData = $this->createPaymentDataForm();
+        $formCardData->handleRequest($request);
+
+        if ($formCardData->isSubmitted() && $formCardData->isValid())
+        {
+            $userSess = $this->userRepo->find($id);
+            $total = 0;
+
+            foreach($session->get('cartWithData', []) as $item){
+                $total += (float)$item['subtotal'];
+            }
+
+            $session->set('order', [
+                'content' => $session->get('cart', []),
+                'price' => $total +  6.94,
+                'address' => $userSess->getUsername() . ' ' .
+                    $userSess->getAddress1() . ' ' .
+                    $userSess->getAddress2() . ' ' .
+                    $userSess->getCity() . ' ' .
+                    $userSess->getZipCode() . ' ' .
+                    $userSess->getCountry()
+               /* 'address' => [
+                    'dest' => $userSess->getUsername(),
+                    'address1' => $userSess->getAddress1(),
+                    'address2' => $userSess->getAddress2(),
+                    'city' => $userSess->getCity(),
+                    'zip_code' => $userSess->getZipCode(),
+                    'country' => $userSess->getCountry(),
+                ]*/
+            ]);
+            return $this->redirectToRoute('cart.order', ['id' => $id]);
+
+            //$this->redirectToRoute('cart.confirm', ['id' => $id]);
+        }
+
+        if ($formCardData->isSubmitted() && $formCardData->isValid())
+        {
+            //ICI
         }
         return $this->render('cart/checkout.html.twig', [
             'user' => $user,
-            'form' => $form->createView(),
+            'formAddr' => $formAddr->createView(),
+            'formCardData' => $formCardData->createView(),
             'hasFullProfile' => $hasFullProfile
         ]);
     }
 
+    //faire page resumer commande avec form (bouton) valider la commande
+    //enregistrement bdd avec status
+    // retrait produit du stock
+    // status par default de la commande
+    // ensuite
+    //  backoffice -> commande
+    //
+    //  controller service
+    //   backoffice service
+    //  securité
 
-
-
-    ///**
-    // * @Route("/cart/confirm/{id}", name="cart.confirm", methods="GET|POST")
-    // * @param Request $rqt
-    // * @param User $user
-    // * @param SessionInterface $session
-    // * @return Response
-    // */
-    /*public function placeOrder(Request $rqt, User $user, SessionInterface $session) : Response
+    /**
+     * @Route("/cart/order/{id}", name="cart.order")
+     * @param int $id
+     * @param OrderStatusRepository $statusRepo
+     * @param SessionInterface $session
+     * @param EntityManagerInterface $manager
+     * @return RedirectResponse
+     */
+    public function validateOrder(int $id,OrderStatusRepository $statusRepo, SessionInterface $session, EntityManagerInterface $manager): Response
     {
-        $cartWithData = $session->get('cartWithData',[]);
-        $userId = $session->get('user', []);
-        if (!empty($cartWithData))
-        {
-            $total = 0;
-            foreach($cartWithData as $item){
-                $total += (float)$item['subtotal'];
-            }
+        //Verif userId == user logged In
+        if ($id != $this->security->getUser()->getId())
+            return $this->redirectToRoute('cart.index');
+        $user = $this->userRepo->find($id);
 
-            //instancie objet user correspondant a l'id
-            $user = $this->userRepo->find($userId);
+        // Verif sessionOrder != empty
+        $sessionOrder = $session->get('order', []);
+        if (empty($sessionOrder))
+            $this->redirectToRoute('cart.index');
 
-            // verification comptre user complet
-            $hasFullProfil = false;
-            if($user->getCity() && $user->getAddress1() && $user->getCountry() && $user->getZipCode()) {
-                $hasFullProfil = true;
-            }
+        // Build New ORDER
+        $order = new Order();
+        if (empty($sessionOrder['price']))
+            return $this->redirectToRoute('cart.index');
+        $order->setPrice($sessionOrder['price']);
+        if (empty($sessionOrder['content']))
+            return $this->redirectToRoute('cart.index');
+        $order->setOrderList($sessionOrder['content']);
+        if (empty($sessionOrder['address']))
+            return $this->redirectToRoute('cart.index');
+        $order->setAddress($sessionOrder['address']);
+        $order->setCreatedAt(new \DateTime());
 
-            $form = $this->createForm(AddressFormType::class, $user);
-            $form->handleRequest($rqt);
-            if ($form->isSubmitted() && $form->isValid()){
-                dd('submited !');
-                //dd('submited');
-                $this->manager->persist($user);
+        $order->setUser($user);
+
+        $status = $statusRepo->find(1);
+        $order->setOrderStatus($status);
+
+
+        //dd($order);
+
+        $manager->persist($order);
+        $manager->flush();
+
+
+        foreach ($sessionOrder['content'] as $itemId=>$qty){
+            $product = $this->manager->getRepository(Product::class)->find($itemId);
+            if(intval($qty) <= $product->getQty()){
+                $product->setQty($product->getQty() - intval($qty));
                 $this->manager->flush();
-                return $this->redirectToRoute('cart.confirm');
             }
+        }
 
-            return $this->render('cart/checkout.html.twig', [
-                'items' => $cartWithData,
-                'user' => $user,
-                'hasFullProfil' => $hasFullProfil,
-                'form' => $form->createView(),
-                'total' => $total + 6.94
-            ]);
-        }
-        else
-        {
-            return $this->redirectToRoute("cart.index");
-        }
-    }*/
+        $data = $session->get('cartWithData', []);
+        $session->remove('cart');
+        $session->remove('cartWithData');
+        $session->remove('content');
+
+        return $this->render('cart/new_order.html.twig', [
+            'order' => $order,
+            'data' => $data
+        ]);
+    }
+
+    private function createPaymentDataForm() {
+
+        $defaultData = ['message' => 'Type your message here'];
+        return $this->createFormBuilder($defaultData)
+            ->add('name', TextType::class, ['label' => 'Nom sur la carte'])
+            //https://stackoverflow.com/questions/35780841/how-to-create-two-related-radiobuttons pour transformer en radio
+            ->add('cardChoices', ChoiceType::class, [
+                'label' => 'Carte de crédit',
+                'choices' => [
+                    'MasterCard' => 'mastercard',
+                    'Visa' => 'visa',
+                    'American Express' => 'aExpress',
+                    'Discover' => 'discover'
+                ],
+            ])
+            ->add('cardNumber', TextType::class,['label' => 'Numéro de la carte'])
+            ->add('cardCvv', TextType::class, ['label' => 'CVV'])
+            ->add('month', ChoiceType::class, [
+                'label' => 'Date expiration',
+                'choices' => [
+                    '01' => 1,
+                    '02' => 2,
+                    '03' => 3,
+                    '04' => 4,
+                    '05' => 5,
+                    '06' => 6,
+                    '07' => 7,
+                    '08' => 8,
+                    '09' => 9,
+                    '10' => 10,
+                    '11' => 11,
+                    '12' => 12
+                ],
+            ])
+            ->add('year', ChoiceType::class, [
+                'label' => ' ',
+                'choices' => [
+                    '2021' => 2021,
+                    '2022' => 2022,
+                    '2023' => 2023,
+                    '2024' => 2024,
+                    '2025' => 2025,
+                ],
+            ])
+            ->getForm();
+    }
 }
