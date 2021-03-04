@@ -126,10 +126,6 @@
                         <p class="ml-xl-0 ml-4">
                             <strong>Type: </strong>{{ product.category }}</p>
                         <p class="ml-xl-0 ml-4">
-                            <strong>Composants: </strong>lessive, eau, ...</p>
-                        <p class="ml-xl-0 ml-4">
-                            <strong>Caractéristiques: </strong>Lessive biologique..</p>
-                        <p class="ml-xl-0 ml-4">
                             <strong>Stock: </strong>
                             {%  if product.qty >= 1 %} Toujours en stock {% else %} Rupture de stock{% endif %}
 
@@ -165,7 +161,7 @@
         <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
 
             <!--Controls-->
-            <div class="controls-top">
+            {# <div class="controls-top">
                 <a class="btn-floating success-color waves-effect waves-light" href="#multi-item-example"
                    data-slide="prev">
                     <i class="fas fa-chevron-left"></i>
@@ -174,7 +170,7 @@
                    data-slide="next">
                     <i class="fas fa-chevron-right"></i>
                 </a>
-            </div>
+            </div> #}
             {% for productThree in productCategory %}
                 <div class="col-md-4 mb-4">
 
