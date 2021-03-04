@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 class AdminProductController extends AbstractController
 {
 
@@ -50,15 +52,32 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/admin/product/add", name="admin.product.add")
      * @param Request $request
+     * @param SluggerInterface $slugger
      * @return RedirectResponse|Response
      */
-    public function add(Request $request)
+    public function add(Request $request, SluggerInterface $slugger)
     {
         $product = new Product();
         $formAddProduct = $this->createForm(ProductType::class, $product);
         $formAddProduct->handleRequest($request);
         if($formAddProduct->isSubmitted() && $formAddProduct->isValid())
         {
+            $img = $formAddProduct->get('image')->getData();
+            if ($img) {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+
+                try {
+                    $img->move(
+                        $this->getParameter('uploadSource'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $product->setImg($newFilename);
+            }
             $product->setCreatedAt(new DateTime());
             $product->setModifiedAt(new DateTime());
             $this->em->persist($product);

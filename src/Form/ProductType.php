@@ -44,7 +44,15 @@ class ProductType extends AbstractType
 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
-
+                'constraints' => [
+                    new File([
+                        'maxSize' => '3000k',
+                        'mimeTypes' => [
+                            'image/png'
+                        ],
+                        'mimeTypesMessage' => 'Format de fichier incorrect !',
+                    ])
+                ],
             ])
         ;
     }
