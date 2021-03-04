@@ -130,7 +130,6 @@
                             {%  if product.qty >= 1 %} <span class="text-success">En stock</span> {% else %} <span class="text-danger">Rupture de stock</span>{% endif %}
 
                         </p>
-
                         <!-- Add to Cart -->
                         <section class="color">
                             <div class="row mt-3 mb-4">
@@ -185,9 +184,8 @@
 
                         <!--Card image-->
                         <div class="view overlay">
-                            <img
-                                 class="img-fluid" src="{{ productThree.img }}" alt="">
-                            <a>
+                            <a href="{{ path('product.show', {slug: productThree.slug, id: productThree.id}) }}">
+                            <img class="img-fluid" src="{{ productThree.img }}" alt="" />
                                 <div class="mask rgba-white-slight waves-effect waves-light"></div>
                             </a>
                         </div>
@@ -199,7 +197,7 @@
 
                             <h5 class="card-title mb-1">
                                 <strong>
-                                    <a href="" class="dark-grey-text">{{ productThree.name }}</a>
+                                    <a href="{{ path('product.show', {slug: productThree.slug, id: productThree.id}) }}" class="dark-grey-text">{{ productThree.name }}</a>
                                 </strong>
                             </h5>
                             <span class="badge grey mb-2">best rated</span>
