@@ -67,7 +67,6 @@ class AdminProductController extends AbstractController
                 $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
-
                 try {
                     $img->move(
                         $this->getParameter('uploadSource'),

@@ -4,7 +4,7 @@
     Eco-Service - Editer un produit
 {% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="../../css/app.css">
 {% endblock %}
 
 {% block javascripts %}
@@ -28,7 +28,7 @@
 
             </div>
             <div class="col-4">
-                <img src="{{ product.img }}" width="558" >
+                <img src="../../{{ imagepath ~ product.img }}" width="558" style="height: 55%;"/>
             </div>
         </div>
     </div>
