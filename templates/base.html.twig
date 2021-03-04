@@ -43,10 +43,10 @@
                         </li>
                         {% if not app.user %}
                         <li class="nav-item">
-                            <a class="nav-link configuration" href="{{ path('security.login') }}"><i class="fas fa-envelope"></i><B>Connexion</B></a>
+                            <a class="nav-link configuration" href="{{ path('security.login') }}"><i class="fas fa-sign-in-alt"></i><B>Connexion</B></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link configuration" href="{{ path('security.registration') }}"><i class="fas fa-envelope"></i><B>Inscription</B></a>
+                            <a class="nav-link configuration" href="{{ path('security.registration') }}"><i class="fas fa-user-plus"></i><B>Inscription</B></a>
                         </li>
                         {% else %}
                         <li class="nav-item">
