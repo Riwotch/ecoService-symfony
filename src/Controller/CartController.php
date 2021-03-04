@@ -140,12 +140,6 @@ class CartController extends AbstractController
                 'minCart' => $session->get('cart'),
                 'content' => $session->get('cartWithData', []),
                 'price' => $total +  6.94,
-                /*'address' => $userSess->getUsername() . ' ' .
-                    $userSess->getAddress1() . ' ' .
-                    $userSess->getAddress2() . ' ' .
-                    $userSess->getCity() . ' ' .
-                    $userSess->getZipCode() . ' ' .
-                    $userSess->getCountry()*/
                 'address' => [
                     'dest' => $userSess->getUsername(),
                     'address1' => $userSess->getAddress1(),
