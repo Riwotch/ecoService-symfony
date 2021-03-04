@@ -34,6 +34,7 @@ class SecurityController extends AbstractController
             $user->setRoles((array)'ROLE_USER');
             $user->setCreatedAt(new \DateTime('now'));
             $user->setModifiedAt(new \DateTime('now'));
+            $user->setRoles((array)'ROLE_USER');
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('security.login');

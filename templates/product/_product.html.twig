@@ -2,9 +2,9 @@
     <div class="card-body">
         <img src="{{ product.img }}" class="card-img-top card__img" alt="...">
         <div class="card-body">
-            <h5 class="card-title"><a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a></h5>
-            <p class="card-text"> {{ product.price }} €</p>
-            <a href="{{ path('cart.add', {id: product.id}) }}" class="btn btn-dark-green btn-sm text-white">Ajouter au panier</a>
+            <h5 class="card-title"><a class="text-decoration-none text-dark" href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a></h5>
+            <p class="h5"> {{ product.price }} €</p>
+            <a href="{{ path('cart.add', {id: product.id}) }}" class="btn btn-dark-green text-white">Ajouter au panier</a>
         </div>
     </div>
 </div>

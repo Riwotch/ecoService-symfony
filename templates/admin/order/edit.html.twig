@@ -5,7 +5,6 @@
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/appAdmin.css">
 {% endblock %}
 
 {% block javascripts %}
@@ -13,69 +12,75 @@
 
 
 {% block body %}
-
-    <div class="document active">
-        <div class="spreadSheetGroup">
-            <hr style="visibility:hidden"/>
+    <div class="container">
+            <div class="row">
+                <div class="col-md-6 mt-5">
+                    <p>
+                        <b>{{ order.address.dest }}</b> <br>
+                        {{ order.address.address1 }} <br>
+                        {{ order.address.address2 }} <br>
+                        {{ order.address.zip_code }} <br>
+                        {{ order.address.city }} <br>
+                        {{ order.address.country }} <br>
+                    </p>
+                </div>
+                {{ form_start(form) }}
+                <div class="col">
+                    {{ form_rest(form) }}
+                    <button class="btn btn-dark-green" >Editer</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <table class="proposedWork" width="100%" style="margin-top:20px">
-                        <thead>
+                <div class="col">
+                    <table class="table" width="100%" style="margin-top:20px">
+                        <thead class="">
                         <th>QTY</th>
                         <th>NOM</th>
                         <th>CATEGORIE</th>
-                        <th class="amountColumn">TOTAL</th>
+                        <th class="text-right">PRIX</th>
+                        <th class =""><b>TOTAL</b></th>
                         </thead>
                         <tbody>
-                        {% for item in orderList %}
-                        <tr>
-                            <td>{{ item.id }}</td>
-                            <td class="unit">{{ item.name }}</td>
-                            <td class="description"></td>
-                            <td class="empty"></td>
-                        </tr>
-                        {% endfor %}
+                            {% for item in orderList %}
+                                <tr>
+                                    <td>{{ item.qty }}</td>
+                                    <td class="unit">{{ item.name }}</td>
+                                    <td class="categorie"></td>
+                                    <td class="prix text-right">{{ item.price }} €</td>
+                                    <td class="amount amountColumn rowTotal">{{ item.subtotal }} €</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td style="border:none"></td>
-                                <td style="border:none"></td>
-                                <td style="border:none;text-align:right">SOUS-TOTAL:</td>
-                                <td class="amount subtotal"> {{ order.price - 6.94 }}€</td>
-                            </tr>
-                            <tr>
-                                <td style="border:none"></td>
-                                <td style="border:none"></td>
-                                <td style="border:none;text-align:right;white-space:nowrap">FRAIS DE PORT:</td>
-                                <td class="amount">6.94€</td>
-                            </tr>
-                            <tr>
-                                <td style="border:none"></td>
-                                <td style="border:none"></td>
-                                <td style="border:none;text-align:right">TOTAL:</td>
-                                <td class="total amount" >{{ order.price}} €</td>
-                            </tr>
+                        <tr>
+                            <td style="border:none"></td>
+                            <td style="border:none"></td>
+                            <td style="border:none"></td>
+                            <td style="border:none;text-align:right">SUBTOTAL:</td>
+                            <td class="amount subtotal">{{ total }} €</td>
+                            <td class="docEdit"></td>
+                        </tr>
+                        <tr>
+                            <td style="border:none"></td>
+                            <td style="border:none"></td>
+                            <td style="border:none"></td>
+                            <td style="border:none;text-align:right">FRAIS DE PORT:</td>
+                            <td class="amount">{{ 6.94 }} €</td>
+                            <td class="docEdit"></td>
+                        </tr>
+                        <tr>
+                            <td style="border:none"></td>
+                            <td style="border:none"></td>
+                            <td style="border:none"></td>
+                            <td style="border:none;text-align:right">TOTAL:</td>
+                            <td class="total amount"><b>{{ total + 6.94 }}</b></td>
+                            <td class="docEdit"></td>
+                        </tr>
                         </tfoot>
                     </table>
-
-                    <div class="col-md-4">
-                        <div class="row">
-                            <p>
-                                {{ order.address.city }}
-                            </p>
-                        </div>
-                        {{ form_start(form) }}
-                        <div class="row">
-                            {{ form_row(form.order_status) }}
-                        </div>
-                        <div class="row">
-                            <a href="{{ path('admin.order.edit', {id: order.id}) }}"></a>
-                        </div>
-                        {{ form_end(form) }}
-                    </div>
                 </div>
             </div>
-        </div>
     </div>
 {% endblock %}
 

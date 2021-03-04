@@ -39,43 +39,38 @@ class AdminOrderController extends AbstractController
     }
 
     /**
-     * @Route("/admin/order/{id}", name="admin.order.edit")
+     * @Route("/admin/order/{id}", name="admin.order.edit", methods="GET|POST")
      * @param Order $order
      * @param Request $rqt
      * @return Response
      */
-    public function edit(Order $order, Request $rqt, ProductRepository $repoProduct) : Response
+    public function edit(Order $order, Request $rqt) : Response
     {
         $currentStatus = $order->getOrderStatus();
         $orderList = $order->getOrderList();
 
-        //dd($orderList);
+        dump($order);
+        $total = 0;
+        foreach($orderList as $item){
+            $total += (float)$item['subtotal'];
+        }
 
-        /*
-            $products = [];
-            foreach ($order->getOrderList() as $idProduct => $qty){
-            $p = $repoProduct->find($idProduct);
-            $products[] = [$qty,
-                $p->getId(),
-                $p->getName(),
-                $p->getCategory()->getName(),
-                $p->getCreatedAt(),
-                $p->getModifiedAt(),
-            ];
-        }*/
 
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($rqt);
-        if ($form->isSubmitted() && $form->isValid())
+        if ($form->isSubmitted() )
         {
-            if ($order->getOrderStatus()->getId() != $currentStatus->getId()){
+            if ($form->isValid()){
                 $this->em->flush();
+                return $this->redirectToRoute('admin.order.index');
             }
-            return $this->redirectToRoute('admin.order.index');
+            //if ($order->getOrderStatus()->getId() != $currentStatus->getId())
+
         }
 
         return $this->render('admin/order/edit.html.twig', [
             'orderList' => $orderList,
+            'total' => $total,
             'order' => $order,
             'form' => $form->createView()
         ]);
