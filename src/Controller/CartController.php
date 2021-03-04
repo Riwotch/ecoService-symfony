@@ -90,43 +90,6 @@ class CartController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cart/add/{id}", name="cart.add")
-     * @param $id
-     * @param SessionInterface $session
-     * @return RedirectResponse
-     */
-    public function add($id, SessionInterface $session): RedirectResponse
-    {
-        $cart = $session->get('cart', []);
-
-        if (!empty($cart[$id])){
-            $cart[$id]++;
-        } else {
-            $cart[$id] = 1;
-        }
-        $session->set('cart', $cart);
-        return $this->redirectToRoute("cart.index");
-    }
-
-    /**
-     * @Route("/cart/remove/{id}", name="cart.remove")
-     * @param $id
-     * @param SessionInterface $session
-     * @return RedirectResponse
-     */
-    public function remove($id, SessionInterface $session): RedirectResponse
-    {
-
-        $cart = $session->get('cart', []);
-        if (!empty($cart[$id])){
-            unset($cart[$id]);
-        }
-
-        $session->set('cart', $cart);
-
-        return $this->redirectToRoute("cart.index");
-    }
 
     /**
      * @Route("/cart/confirm/{id}", name="cart.confirm", methods="GET|POST")
@@ -174,32 +137,29 @@ class CartController extends AbstractController
             }
 
             $session->set('order', [
-                'content' => $session->get('cart', []),
+                'minCart' => $session->get('cart'),
+                'content' => $session->get('cartWithData', []),
                 'price' => $total +  6.94,
-                'address' => $userSess->getUsername() . ' ' .
+                /*'address' => $userSess->getUsername() . ' ' .
                     $userSess->getAddress1() . ' ' .
                     $userSess->getAddress2() . ' ' .
                     $userSess->getCity() . ' ' .
                     $userSess->getZipCode() . ' ' .
-                    $userSess->getCountry()
-               /* 'address' => [
+                    $userSess->getCountry()*/
+                'address' => [
                     'dest' => $userSess->getUsername(),
                     'address1' => $userSess->getAddress1(),
                     'address2' => $userSess->getAddress2(),
                     'city' => $userSess->getCity(),
                     'zip_code' => $userSess->getZipCode(),
                     'country' => $userSess->getCountry(),
-                ]*/
+                ]
             ]);
             return $this->redirectToRoute('cart.order', ['id' => $id]);
 
             //$this->redirectToRoute('cart.confirm', ['id' => $id]);
         }
 
-        if ($formCardData->isSubmitted() && $formCardData->isValid())
-        {
-            //ICI
-        }
         return $this->render('cart/checkout.html.twig', [
             'user' => $user,
             'formAddr' => $formAddr->createView(),
@@ -207,17 +167,6 @@ class CartController extends AbstractController
             'hasFullProfile' => $hasFullProfile
         ]);
     }
-
-    //faire page resumer commande avec form (bouton) valider la commande
-    //enregistrement bdd avec status
-    // retrait produit du stock
-    // status par default de la commande
-    // ensuite
-    //  backoffice -> commande
-    //
-    //  controller service
-    //   backoffice service
-    //  securité
 
     /**
      * @Route("/cart/order/{id}", name="cart.order")
@@ -241,14 +190,11 @@ class CartController extends AbstractController
 
         // Build New ORDER
         $order = new Order();
-        if (empty($sessionOrder['price']))
+        if (empty($sessionOrder['price']) || empty($sessionOrder['content']) || empty($sessionOrder['address']))
             return $this->redirectToRoute('cart.index');
+
         $order->setPrice($sessionOrder['price']);
-        if (empty($sessionOrder['content']))
-            return $this->redirectToRoute('cart.index');
         $order->setOrderList($sessionOrder['content']);
-        if (empty($sessionOrder['address']))
-            return $this->redirectToRoute('cart.index');
         $order->setAddress($sessionOrder['address']);
         $order->setCreatedAt(new \DateTime());
 
@@ -257,6 +203,7 @@ class CartController extends AbstractController
         $status = $statusRepo->find(1);
         $order->setOrderStatus($status);
 
+        $session->remove('order');
 
         //dd($order);
 
@@ -264,7 +211,8 @@ class CartController extends AbstractController
         $manager->flush();
 
 
-        foreach ($sessionOrder['content'] as $itemId=>$qty){
+
+        foreach ($sessionOrder['minCart'] as $itemId=>$qty){
             $product = $this->manager->getRepository(Product::class)->find($itemId);
             if(intval($qty) <= $product->getQty()){
                 $product->setQty($product->getQty() - intval($qty));
@@ -279,9 +227,48 @@ class CartController extends AbstractController
 
         return $this->render('cart/new_order.html.twig', [
             'order' => $order,
-            'data' => $data
+            //'data' => $data
         ]);
     }
+
+    /**
+     * @Route("/cart/add/{id}", name="cart.add")
+     * @param $id
+     * @param SessionInterface $session
+     * @return RedirectResponse
+     */
+    public function add($id, SessionInterface $session): RedirectResponse
+    {
+        $cart = $session->get('cart', []);
+
+        if (!empty($cart[$id])){
+            $cart[$id]++;
+        } else {
+            $cart[$id] = 1;
+        }
+        $session->set('cart', $cart);
+        return $this->redirectToRoute("cart.index");
+    }
+
+    /**
+     * @Route("/cart/remove/{id}", name="cart.remove")
+     * @param $id
+     * @param SessionInterface $session
+     * @return RedirectResponse
+     */
+    public function remove($id, SessionInterface $session): RedirectResponse
+    {
+
+        $cart = $session->get('cart', []);
+        if (!empty($cart[$id])){
+            unset($cart[$id]);
+        }
+
+        $session->set('cart', $cart);
+
+        return $this->redirectToRoute("cart.index");
+    }
+
 
     private function createPaymentDataForm() {
 

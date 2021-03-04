@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Admin - Gestion des commandes
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Liste des commandes :</h4>
+                </div>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Utilisateur</th>
+                        <th>Prix</th>
+                        <th>Status</th>
+                        <th>Date modification</th>
+                        <th>Date création</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.getId()}}</td>
+                            <td>{{ order.getUser().getUsername() }}</td>
+                            <td>{{ order.getPrice() }} €</td>
+                            <td>{{ order.getOrderStatus.getName }}</td>
+                            <td>{{ order.getModifiedAt()|date('Y-m-d H:i:s') }}</td>
+                            <td>{{ order.getCreatedAt()|date('Y-m-d H:i:s')}}</td>
+                            <td>
+                                <a href="{{ path('admin.order.edit', {id: order.id}) }}" class="btn btn-secondary btn-sm">Éditer</a>
+                                <form method="POST" action="{{ path('admin.order.delete', {id: order.id}) }}" style="display: inline-block"
+                                      onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet événement ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value=""{{ csrf_token('delete' ~ order.id) }}>
+                                    <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

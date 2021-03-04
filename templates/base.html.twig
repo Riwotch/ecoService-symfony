@@ -33,15 +33,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="basicExampleNav">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link configuration" href="{{ path('home_presentation') }}"><i class="fas fa-seedling"></i><B>Présentation</B></a>
+                            <a class="nav-link configuration" href="{{ path('home.presentation') }}"><i class="fas fa-seedling"></i><B>Présentation</B></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link configuration" href="panier.php"><i class="fas fa-shopping-basket"></i><B>Catalogue</B></a>
+                            <a class="nav-link configuration" href="{{ path('product.index') }}"><i class="fas fa-shopping-basket"></i><B>Nos produits</B></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link configuration" href="{{ path('home_contact') }}"><i class="fas fa-envelope"></i><B>Contactez-nous</B></a>
+                            <a class="nav-link configuration" href="{{ path('home.contact') }}"><i class="fas fa-clipboard"></i><B>Nos services</B></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link configuration" href="aide.php"><i class="fas fa-question"></i><B>Aide</B></a>
@@ -76,7 +76,7 @@
         </header>
         {% block body %}{% endblock %}
 
-        <footer class="page-footer text-center text-md-left bg-success pt-0 pt-3">
+        <footer class="page-footer text-center text-md-left success-color-dark pt-0 pt-3 mt-4">
             <!--Footer Links-->
             <div class="container mt-5 mb-4 text-center text-md-left">
                 <div class="row mt-3">
@@ -98,10 +98,10 @@
                         </h6>
                         <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                         <p>
-                            <a href="#!">Tous les produits</a>
+                            <a href="{{ path('product.index') }}">Tous les produits</a>
                         </p>
                         <p>
-                            <a href="#!">Meilleures ventes</a>
+                            <a href="{{ path('product.index') }}">Meilleures ventes</a>
                         </p>
                     </div>
                     <!--/.Second column-->
@@ -116,7 +116,7 @@
                             <a href="{{ path("home") }}">Accueil</a>
                         </p>
                         <p>
-                            <a href="#!">Découvrez Eco-service</a>
+                            <a href="{{ path('home.presentation') }}">Découvrez Eco-service</a>
                         </p>
                         <p>
                             <a href="#!">Demande de devis</a>
@@ -130,7 +130,7 @@
                             <strong>Contact</strong>
                         </h6>
                         <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                        <p><a href="contact.html">Ecrivez-nous ici</a></p>
+                        <p><a href="">Ecrivez-nous ici</a></p>
                     </div>
                     <!--/.Fourth column-->
 
@@ -141,7 +141,7 @@
             <!-- Copyright-->
             <div class="footer-copyright py-3 text-center">
                 <div class="container-fluid">
-                    © 2020 Copyright <a href="index.html" target="_blank">eco-service</a>
+                    © 2020 Copyright <a href="{{ path('home') }}" target="_blank">eco-service</a>
                 </div>
             </div>
             <!--/.Copyright -->

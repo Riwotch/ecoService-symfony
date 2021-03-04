@@ -45,10 +45,11 @@ class Order
      */
     private $price;
 
+    //@ORM\Column(type="string", length=512)
     /**
-     * @ORM\Column(type="string", length=512)
+     * @ORM\Column(type="json")
      */
-    private $address;
+    private $address = [];
 
     /**
      * @ORM\Column(type="datetime")
@@ -125,6 +126,19 @@ class Order
         return $this;
     }
 
+    public function getAddress(): ?array
+    {
+        return $this->address;
+
+    }
+
+    public function setAddress(array $address) : self{
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /*
     public function getAddress(): ?string
     {
         return $this->address;
@@ -136,7 +150,7 @@ class Order
 
         return $this;
     }
-
+    */
     public function getModifiedAt(): ?\DateTimeInterface
     {
         return $this->modified_at;

@@ -19,6 +19,12 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    public function findAllOrderByDate(){
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.created_at', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */

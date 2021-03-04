@@ -14,7 +14,7 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12 mb-5">
                         <form id="login-form" class="form" action="{{ path('security.login') }}" method="post">
-                            <h3 class="text-center text-info">Login</h3>
+                            <h3 class="text-center text-info">Connexion</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Email :</label><br>
                                 <input type="text" required name="_username" id="username" class="form-control">
@@ -24,10 +24,10 @@
                                 <input type="password" required name="_password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="submit" class="btn btn-success btn-md">Connexion</button>
+                                <button type="submit" name="submit" class="btn btn-dark-green btn-md">Connexion</button>
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+                                <a href="{{ path('security.registration') }}" class="text-info">S'inscrire</a>
                             </div>
                         </form>
                     </div>

@@ -23,37 +23,42 @@
 
 <div id="container">
     <!-- Card Presentation -->
-    <div class="card card-image cs">
+    <div class="card card-image cs" style="background-image: url(ressources/img/presentation.jpg);">
         <!-- Content -->
-        <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
-            <div class="presentation">
-                <h5 class="white-text"><i class="fas fa-seedling"></i> Présentation</h5>
-                <h3 class="card-title pt-2"><strong>Envie de nous connaître ?</strong></h3>
-                <p>Découvrez qui nous sommes.</p>
+        <a href="{{ path('home.presentation') }}">
+            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
+                <div class="presentation">
+                    <h5 class="white-text"><i class="fas fa-seedling"></i> Présentation</h5>
+                    <h3 class="card-title pt-2"><strong>Envie de nous connaître ?</strong></h3>
+                    <p>Découvrez qui nous sommes.</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
     <!-- Card Catalogue -->
-    <div class="card card-image cs" >
+    <div class="card card-image cs" style="background-image: url(ressources/img/Catalogue.jpg);">
         <!-- Content -->
-        <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
-            <div>
-                <h5 class="white-text"><i class="fas fa-shopping-basket"></i> Catalogue</h5>
-                <h3 class="card-title pt-2"><strong>Besoin de produits écoresponsable ?</strong></h3>
-                <p>Découvrez notre catalogue composé à 100% de produits écoresponsable afin de trouver ce qu'il vous faut.</p>
+        <a href="{{ path('product.index') }}">
+            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
+                <div>
+                    <h5 class="white-text"><i class="fas fa-shopping-basket"></i> Catalogue</h5>
+                    <h3 class="card-title pt-2"><strong>Besoin de produits écoresponsable ?</strong></h3>
+                    <p>Découvrez notre catalogue composé à 100% de produits écoresponsable afin de trouver ce qu'il vous faut.</p>
+                </div>
             </div>
-        </div>
+        </a>
+
     </div>
     <!-- Card Contact -->
-    <div class="card card-image cs" >
+    <div class="card card-image cs" style="background-image: url(ressources/img/contact.jpg);">
         <!-- Content -->
-        <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
-            <div>
-                <h5 class="white-text"><i class="fas fa-envelope"></i> Contactez-nous</h5>
-                <h3 class="card-title pt-2"><strong>Besoin de nos services ?</strong></h3>
-                <p>Dirigez-vous sur le lien pour tout type de services.</p>
+            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
+                <div>
+                    <h5 class="white-text"><i class="fas fa-envelope"></i> Contactez-nous</h5>
+                    <h3 class="card-title pt-2"><strong>Besoin de nos services ?</strong></h3>
+                    <p>Dirigez-vous sur le lien pour tout type de services.</p>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 {% endblock %}

@@ -12,6 +12,8 @@ hr {
     z-index: 1000;
 }
 
+
+
 .logo img{
     height: 100%;
     max-height: 35px;
@@ -55,12 +57,12 @@ hr {
 }
 
 .btn {
-    background-color: rgb(0, 200, 81);
+    background-color: #007E33;
 }
 
 .container .h1 {
     text-align: center;
-    color: #00c851;
+    color: #007E33;
 }
 
 .header{
@@ -86,10 +88,6 @@ hr {
     z-index: 500;
 }
 
-#basicExampleNav {
-    margin-left: 200px;
-}
-
 .mrg-top{
     margin-top: 120px !important;
 }
@@ -108,7 +106,7 @@ h1 {
     margin-top: 120px;
     max-width: 600px;
     height: 320px;
-    border: 1px solid #00c851;
+    border: 1px solid #007E33;
     background-color: #eaeaea;
 }
 #login .container #login-row #login-column #login-box #login-form {
