@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{%  block title %}
+{% block title %}
     Eco-Service - {{ product.name }}
 {% endblock %}
 {% block stylesheets %}
@@ -15,7 +15,248 @@
 {% endblock %}
 
 {% block body %}
-<h2>{{ product.name }}</h2>
+    <div class="container mt-5">
+        <section id="productDetails" class="pb-5">
+
+            <!--News card-->
+            <div class="card mt-5 hoverable">
+                <div class="row mt-5">
+                    <div class="col-lg-6">
+                        <div class="row mx-2">
+                            <img src="{{ product.img }}" alt="" style="width: 100%; height: 501px"/>
+                        </div>
+
+                        <!--Grid row-->
+                        <div class="row mb-4">
+
+                            <div class="col-md-12">
+
+                                <div id="mdb-lightbox-ui">
+                                    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                                    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+                                        <!-- Background of PhotoSwipe.
+		         It's a separate element, as animating opacity is faster than rgba(). -->
+                                        <div class="pswp__bg"></div>
+
+                                        <!-- Slides wrapper with overflow:hidden. -->
+                                        <div class="pswp__scroll-wrap">
+
+                                            <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+                                            <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+                                            <div class="pswp__container">
+                                                <div class="pswp__item"></div>
+                                                <div class="pswp__item"></div>
+                                                <div class="pswp__item"></div>
+                                            </div>
+
+                                            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                                            <div class="pswp__ui pswp__ui--hidden">
+
+                                                <div class="pswp__top-bar">
+
+                                                    <!--  Controls are self-explanatory. Order can be changed. -->
+
+                                                    <div class="pswp__counter"></div>
+
+                                                    <button class="pswp__button pswp__button--close"
+                                                            title="Close (Esc)"></button>
+
+                                                    <!--<button class="pswp__button pswp__button--share" title="Share"></button>-->
+
+                                                    <button class="pswp__button pswp__button--fs"
+                                                            title="Toggle fullscreen"></button>
+
+                                                    <button class="pswp__button pswp__button--zoom"
+                                                            title="Zoom in/out"></button>
+
+                                                    <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                                                    <!-- element will get class pswp__preloader--active when preloader is running -->
+                                                    <div class="pswp__preloader">
+                                                        <div class="pswp__preloader__icn">
+                                                            <div class="pswp__preloader__cut">
+                                                                <div class="pswp__preloader__donut"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--
+		            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+		                <div class="pswp__share-tooltip"></div>
+		            </div>
+		       		-->
+
+                                                <button class="pswp__button pswp__button--arrow--left"
+                                                        title="Previous (arrow left)">
+                                                </button>
+
+                                                <button class="pswp__button pswp__button--arrow--right"
+                                                        title="Next (arrow right)">
+                                                </button>
+
+                                                <div class="pswp__caption">
+                                                    <div class="pswp__caption__center"></div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                    </div>
+                    <div class="col-lg-5 mr-3 text-center text-md-left">
+                        <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
+                            <strong>{{ product.name}}</strong>
+                        </h2>
+                        <h3 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
+
+                            <span class="green-text">
+                                <small>
+                                    <strong>{{ product.price }}€</strong>
+                                </small>
+                            </span>
+                        </h3>
+
+                        <p class="ml-xl-0 ml-4">{{ product.description }}</p>
+                        <p class="ml-xl-0 ml-4">
+                            <strong>Type: </strong>{{ product.category }}</p>
+                        <p class="ml-xl-0 ml-4">
+                            <strong>Composants: </strong>lessive, eau, ...</p>
+                        <p class="ml-xl-0 ml-4">
+                            <strong>Caractéristiques: </strong>Lessive biologique..</p>
+                        <p class="ml-xl-0 ml-4">
+                            <strong>Stock: </strong>
+                            {%  if product.qty >= 1 %} Toujours en stock {% else %} Rupture de stock{% endif %}
+
+                        </p>
+
+                        <!-- Add to Cart -->
+                        <section class="color">
+                            <div class="row mt-3 mb-4">
+                                <div class="col-md-12 text-center text-md-left text-md-right">
+                                    <button class="btn btn-success btn-rounded waves-effect waves-light">
+                                        <i class="fas fa-cart-plus mr-2" aria-hidden="true"></i>Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+        <!-- /.Add to Cart -->
+    </div>
+    </div>
+
+    <!--News card-->
+    <section id="products" class="pb-5 mt-4">
+
+        <hr>
+        <h4 class="h4-responsive dark-grey-text font-weight-bold my-5 text-center">
+            <strong>Vous aimerez aussi</strong>
+        </h4>
+        <hr class="mb-5">
+
+        <p class="text-center w-responsive mx-auto mb-5 dark-grey-text">Découvrez d'autres produits écologiques qui
+            pourraient vous intéresser</p>
+
+        <!--Carousel Wrapper-->
+        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Controls-->
+            <div class="controls-top">
+                <a class="btn-floating success-color waves-effect waves-light" href="#multi-item-example"
+                   data-slide="prev">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a class="btn-floating success-color waves-effect waves-light" href="#multi-item-example"
+                   data-slide="next">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            {% for productThree in productCategory %}
+                <div class="col-md-4 mb-4">
+
+                    <!-- Card-->
+                    <div class="card card-ecommerce">
+
+                        <!--Card image-->
+                        <div class="view overlay">
+                            <img
+                                 class="img-fluid" src="{{ productThree.img }}" alt="">
+                            <a>
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <!--Card image-->
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <!--Category & Title-->
+
+                            <h5 class="card-title mb-1">
+                                <strong>
+                                    <a href="" class="dark-grey-text">{{ productThree.name }}</a>
+                                </strong>
+                            </h5>
+                            <span class="badge grey mb-2">best rated</span>
+                            <!-- Rating -->
+                            <ul class="rating">
+                                <li>
+                                    <i class="fas fa-star green-text"></i>
+                                </li>
+                                <li>
+                                    <i class="fas fa-star green-text"></i>
+                                </li>
+                                <li>
+                                    <i class="fas fa-star green-text"></i>
+                                </li>
+                                <li>
+                                    <i class="fas fa-star green-text"></i>
+                                </li>
+                                <li>
+                                    <i class="fas fa-star green-text"></i>
+                                </li>
+                            </ul>
+
+                            <!--Card footer-->
+                            <div class="card-footer pb-0">
+                                <div class="row mb-0">
+                                            <span class="float-left">
+                                                <strong>{{ productThree.price }} €</strong>
+                                            </span>
+                                    <span class="float-right">
+                                        <a class="" data-toggle="tooltip" data-placement="top" title="" <i class="fas fa-shopping-cart ml-3"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--Card content-->
+
+                    </div>
+                </div>
+                    <!--Card-->
+            {% endfor %}
+
+
+                </div>
+                <!--first slide-->
+
+                <!--second slide-->
+                <!--second slide-->
+
+            </div>
+            <!--Slides-->
+
+        </div>
+        <!--Carousel Wrapper-->
+    </section>
+    </section>
+    </div>
+    </div>
+
 {% endblock %}
 
 

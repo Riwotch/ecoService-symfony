@@ -27,7 +27,18 @@ class ProductRepository extends ServiceEntityRepository
         ->setMaxResults(4);
     }
 
-
+    public function findByCategory(Product $product)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.category = :idCategory')
+            ->andWhere('p.id != :id')
+            ->setParameter('idCategory', $product->getCategory())
+            ->setParameter('id', $product->getId())
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Product[] Returns an array of Product objects

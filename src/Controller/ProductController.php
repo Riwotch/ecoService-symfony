@@ -45,10 +45,11 @@ class ProductController extends AbstractController
                 'slug' => $product->getSlug()
             ], 301);
         }
-
+        $egalCategory = $this->repository->findByCategory($product);
         //$product = $this->repository->find($id);
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'productCategory' => $egalCategory
         ]);
     }
 }
