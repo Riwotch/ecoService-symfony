@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Ajout d'un produit
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="margin-top: 150px;">
+        <div class="row">
+            <div class="col-6">
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.category) }}
+                {{ form_rest(form) }}
+                <button class="btn btn-secondary">Ajouter</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="col-4">
+                <img src="{{ product.img }}" width="558" >
+            </div>
+        </div>
+    </div>
+{% endblock %}

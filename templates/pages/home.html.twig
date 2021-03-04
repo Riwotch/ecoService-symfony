@@ -5,6 +5,7 @@
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/style.css">
 {% endblock %}
 
 {% block javascripts %}
@@ -16,42 +17,41 @@
 {% endblock %}
 
 {% block body %}
-<div id="content">
-    <div class="container text-center">
-        <h2>Bienvenue sur Eco-Service</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet blanditiis cumque, eius ipsum itaque laborum laudantium nostrum qui, quia ratione rem sit tempora. Aperiam consectetur dolore enim exercitationem provident!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci culpa doloremque dolorum laudantium molestias natus nisi qui, quod, recusandae rerum soluta totam velit vero? Inventore nihil, veniam! Fugiat, laboriosam nesciunt.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto id iste libero magnam maiores officiis sequi voluptas voluptates. A corporis impedit magni, minus quae quibusdam vitae voluptatem. Beatae, molestiae.</p>
-    </div>
-    <div class="container mt-xl-5 mb-xl-5">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card mb-3">
-                    <a href="{{ path("product.index") }}">
-                        <img
-                                src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                                class="card-img-top"
-                                alt="..."
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Nos produits</h5>
-                        </div>
-                    </a>
-                </div>
+<div class="title">
+    Bienvenue sur le site de Eco-Service <i class="fas fa-seedling"></i>
+</div>
+
+<div id="container">
+    <!-- Card Presentation -->
+    <div class="card card-image cs">
+        <!-- Content -->
+        <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
+            <div class="presentation">
+                <h5 class="white-text"><i class="fas fa-seedling"></i> Présentation</h5>
+                <h3 class="card-title pt-2"><strong>Envie de nous connaître ?</strong></h3>
+                <p>Découvrez qui nous sommes.</p>
             </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <a href="{{ path("service.index") }}">
-                        <img
-                                src="https://mdbootstrap.com/img/new/slides/042.jpg"
-                                class="card-img-top"
-                                alt="..."
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Nos services</h5>
-                        </div>
-                    </a>
-                </div>
+        </div>
+    </div>
+    <!-- Card Catalogue -->
+    <div class="card card-image cs" >
+        <!-- Content -->
+        <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
+            <div>
+                <h5 class="white-text"><i class="fas fa-shopping-basket"></i> Catalogue</h5>
+                <h3 class="card-title pt-2"><strong>Besoin de produits écoresponsable ?</strong></h3>
+                <p>Découvrez notre catalogue composé à 100% de produits écoresponsable afin de trouver ce qu'il vous faut.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Card Contact -->
+    <div class="card card-image cs" >
+        <!-- Content -->
+        <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 fo-ba">
+            <div>
+                <h5 class="white-text"><i class="fas fa-envelope"></i> Contactez-nous</h5>
+                <h3 class="card-title pt-2"><strong>Besoin de nos services ?</strong></h3>
+                <p>Dirigez-vous sur le lien pour tout type de services.</p>
             </div>
         </div>
     </div>

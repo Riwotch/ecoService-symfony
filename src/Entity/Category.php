@@ -34,6 +34,11 @@ class Category
         $this->products = new ArrayCollection();
     }
 
+    public function __toString(): ?string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,7 +70,6 @@ class Category
             $this->products[] = $product;
             $product->setCategory($this);
         }
-
         return $this;
     }
 
@@ -77,7 +81,6 @@ class Category
                 $product->setCategory(null);
             }
         }
-
         return $this;
     }
 }

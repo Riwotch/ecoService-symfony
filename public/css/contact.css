@@ -1,0 +1,43 @@
+.logo img {
+    width: 100px;
+}
+.configuration {
+    margin-left: 10px;
+}
+#conteneur-contact {
+    display: flex;
+    justify-content: center;
+}
+.contact {
+    border: 1px solid black;
+    width: 900px;
+    height: 600px;
+}
+.contact-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 400;
+    color: #007E33;
+}
+.contact-description {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: #007E33;
+}
+.contact-name-mail {
+    display: flex;
+}
+.service {
+    width: 300px;
+    height: 470px;
+}
+#container-contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 100px;
+}
+.size {
+    width: 500px;
+}

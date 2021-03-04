@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service -
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/contact.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="container-contact">
+        <!-- Card enlever -->
+        <div class="card size">
+            <!-- Card image -->
+            <div class="view overlay">
+                <img class="card-img-top" src="{{ asset('') }}" alt="Card image cap">
+            </div>
+            <!-- Card contenu -->
+            <div class="card-body">
+                <!-- Titre -->
+                <h4 class="card-title">Enlever</h4>
+                <hr>
+                <!-- Texte -->
+                <p class="card-text">Vous souhaitez que la société vienne enlever votre matériel destiné au recyclage ? Veuillez consulter le formulaire ci joint.</p>
+                <!-- Lien formulaire -->
+                <a href="formulaire-enlever.php" class="black-text d-flex justify-content-end">
+                    <h5>Formulaire <i class="fas fa-angle-double-right"></i></h5>
+                </a>
+            </div>
+        </div>
+        <!-- Card apporter -->
+        <div class="card size">
+            <!-- Card image -->
+            <div class="view overlay">
+                <img class="card-img-top" src="{{ asset('') }}" alt="Card image cap">
+            </div>
+            <!-- Card contenu -->
+            <div class="card-body">
+                <!-- Titre -->
+                <h4 class="card-title">Apporter</h4>
+                <hr>
+                <!-- Texte -->
+                <p class="card-text">Vous souhaitez apporter vous-même votre matériel destiné au recyclage ? Veuillez consulter le formulaire ci-joint.</p>
+                <!-- Lien formulaire -->
+                <a href="formulaire-apporter.php" class="black-text d-flex justify-content-end">
+                    <h5>Formulaire <i class="fas fa-angle-double-right"></i></h5>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

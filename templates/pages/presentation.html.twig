@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Accueil
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/presentation.css">
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="conteneur-presentation">
+        <div class="text-picture-one">
+            <div class="text-one">
+                Qui est Eco-Service ?
+                <p>
+                    Eco-Service est une société spécialisée dans le recyclage d'appareils électriques et électroniques usagés, outils indsutrielles, déchets organiques...
+                    Aujourd'hui, cette société propose un service de e-commerce. Grâce à ce service, cette société propose la vente de produits écoresponsables en ligne pour
+                    se diversifier mais tout en continuant d'exercer sa principale activité.
+                </p>
+            </div>
+            <div class="picture-one">
+                <img src="{{ asset('ressources/img/Logo3.png') }}">
+            </div>
+        </div>
+        <div class="text-picture-two">
+            <div class="picture-two">
+                <img src="Images/5r.png">
+            </div>
+            <div class="text-two">
+                La démarche zéro déchet, c'est quoi ?
+                <p>
+                    La démarche zéro déchet consiste à réduire la quantité de déchets que nous produisons et leur impact environnemental en changeant simplement nos habitudes.
+                    C’est une démarche progressive, écologique, économique et bénéfique pour la santé !
+                    Le principe : la règle des 5 R. Il s’agit de repenser notre manière de consommer, en réduisant à la source les déchets que nous produisons,
+                    en allongeant la durée de vie des biens et en repassant notre consommation dans une logique d’économie plus circulaire.
+                    Pour cela la démarche zéro déchet repose sur le principe des 5R, dans l’ordre suivant :
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
