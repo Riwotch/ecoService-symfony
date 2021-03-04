@@ -15,15 +15,24 @@
 {% endblock %}
 
 {% block body %}
-    {% if role == 'ROLE_ADMIN' %}
+    <div style="margin-top: 150px;">
+    {% if role[0] == 'ROLE_ORDER' %}
         <p>Admin</p>
+        <a href="" class="btn btn-secondary">Voir les utilisateurs</a>
+        <a href="{{ path('admin.product.index') }}" class="btn btn-secondary">Voir les produits</a>
+        <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir les ordres</a>
     {% endif %}
 
-    {% if role == 'ROLE_SERVICE' %}
-        {% include 'admin/order/index.html.twig' %}
+    {% if role[0] == 'ROLE_SERVICE' %}
+        <a href="">Voir tous les services</a>
     {% endif %}
 
-    {% if role == 'ROLE_PRODUCT' %}
-        {% include 'admin/product/index.html.twig' %}
+    {% if role[0] == 'ROLE_PRODUCT' %}
+        <a href="{{ path('admin.product.index') }}">Voir tous les produits</a>
     {% endif %}
+
+    {% if role[0] == 'ROLE_ADMIN' %}
+        <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir tous les ordres</a>
+    {% endif %}
+    </div>
 {% endblock %}

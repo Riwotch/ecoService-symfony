@@ -1024,8 +1024,8 @@
     </collation>
     <user id="327" parent="1" name="221023_admin">
       <Host>%</Host>
-      <ObjectGrants>ALL PRIVILEGES|ecoservice_ecommerce!
-ALL PRIVILEGES|ecoservice_symfony!
+      <ObjectGrants>ALL PRIVILEGES|ecoservice_symfony!
+ALL PRIVILEGES|ecoservice_ecommerce!
 </ObjectGrants>
     </user>
     <table id="328" parent="3" name="category">
@@ -1345,7 +1345,8 @@ ALL PRIVILEGES|ecoservice_symfony!
     </column>
     <column id="424" parent="330" name="address">
       <Position>7</Position>
-      <DataType>varchar(512)|0s</DataType>
+      <Comment>(DC2Type:json)</Comment>
+      <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="425" parent="330" name="modified_at">
