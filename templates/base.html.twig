@@ -7,18 +7,18 @@
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
 
-        <link rel="stylesheet" href="{{ asset('mdbootstrap/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('mdbootstrap/css/mdb.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('mdbootstrap/css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('../mdbootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('../mdbootstrap/css/mdb.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('../mdbootstrap/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('../fontawesome/css/all.css') }}">
 
         {% block stylesheets %}
 
         {% endblock %}
-        <script type="text/javascript" src="{{ asset('mdbootstrap/js/jquery.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('mdbootstrap/js/popper.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('mdbootstrap/js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('mdbootstrap/js/mdb.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('../mdbootstrap/js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('../mdbootstrap/js/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('../mdbootstrap/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('../mdbootstrap/js/mdb.min.js') }}"></script>
 
         {% block javascripts %}
 
@@ -44,7 +44,7 @@
                             <a class="nav-link configuration" href="{{ path('home.contact') }}"><i class="fas fa-clipboard"></i><B>Nos services</B></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link configuration" href="aide.php"><i class="fas fa-question"></i><B>Aide</B></a>
+                            <a class="nav-link configuration" href="{{ path('home.help') }}"><i class="fas fa-question"></i><B>Aide</B></a>
                         </li>
                         {% if not app.user %}
                         <li class="nav-item">
@@ -54,11 +54,11 @@
                             <a class="nav-link configuration" href="{{ path('security.registration') }}"><i class="fas fa-envelope"></i><B>Inscription</B></a>
                         </li>
                         {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link configuration" href="{{ path('cart.index') }}" ><i class="fas fa-shopping-cart"></i><B>Panier</B></a>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a href="{{ path('cart.index') }}" ><i class="fas fa-camera"></i>Panier</a>
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-mdb-toggle="dropdown" aria-expanded="false">{{ app.user.username }}
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"><B>{{ app.user.username }}</B></a>
                             <!-- Dropdown menu -->
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Profil</a></li>
@@ -87,7 +87,7 @@
                             <strong>Eco-service</strong>
                         </h6>
                         <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, voluptatibus. Aut voluptates assumenda non eius animi, sed ratione aspernatur adipisci facilis, cum voluptatem perferendis labore fuga officiis ullam hic soluta.</p>
+                        <p>Eco-Service est une société spécialisée dans le recyclage d'appareils électriques et électroniques usagés, outils indsutrielles, déchets organiques</p>
                     </div>
                     <!--/.First column-->
 
@@ -130,7 +130,7 @@
                             <strong>Contact</strong>
                         </h6>
                         <hr class="white mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                        <p><a href="">Ecrivez-nous ici</a></p>
+                        <p><a href="{{ path('home.help') }}">Ecrivez-nous ici</a></p>
                     </div>
                     <!--/.Fourth column-->
 

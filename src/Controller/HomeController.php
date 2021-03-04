@@ -31,4 +31,12 @@ class HomeController extends AbstractController
     {
         return $this->render('pages/contact.html.twig');
     }
+
+    /**
+     * @Route("/aide", name="home.help")
+     */
+    public function help() : Response
+    {
+        return $this->render('pages/help.html.twig');
+    }
 }

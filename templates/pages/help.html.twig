@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Aide
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <!-- Default form contact -->
+        <form class="text-center d-flex flex-column justify-content-center align-items-center border border-light p-5" action="#">
+
+            <p class="h4 mb-4">Contactez-nous</p>
+
+            <!-- Email -->
+            <input type="email" class="form-control mb-4 col-sm-12 col-md-8" placeholder="E-mail">
+
+            <!-- Subject -->
+            <select class="browser-default custom-select mb-4 col-sm-12 col-md-8">
+            <option value="" selected disabled>Choisir un sujet</option>
+            <option value="1">Retour produit</option>
+            <option value="2">Problème de livraison</option>
+            <option value="3">Demande commerciale</option>
+            <option value="4">Renseignement</option>
+        </select>
+
+            <!-- Message -->
+            <textarea class="form-control rounded-0 col-sm-12 col-md-8 mb-4" rows="3" placeholder="Ecrivez un message"></textarea>
+
+            <!-- Send button -->
+            <input class="btn btn-success-dark btn-block text-white" type="submit" value="Envoyer" />
+
+        </form>
+        <!-- Default form contact -->
+    </div>
+{% endblock %}
