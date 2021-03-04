@@ -1,14 +1,13 @@
-.logo img {
-    width: 100px;
-}
 .configuration {
     margin-left: 10px;
 }
+
 .title {
     text-align: center;
     color: #007E33;
     font-size: 40px;
 }
+
 #container {
     width: 100%;
     height: 100%;
@@ -16,10 +15,12 @@
     justify-content: space-around;
     margin-top: 100px;
 }
+
 .cs {
     width: 350px !important;
     height: 350px;
 }
+
 .fo-ba {
     height: 350px;
 }
