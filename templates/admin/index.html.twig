@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Administration
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    {% if role == 'ROLE_ADMIN' %}
+        <p>Admin</p>
+    {% endif %}
+
+    {% if role == 'ROLE_SERVICE' %}
+        {% include 'admin/order/index.html.twig' %}
+    {% endif %}
+
+    {% if role == 'ROLE_PRODUCT' %}
+        {% include 'admin/product/index.html.twig' %}
+    {% endif %}
+{% endblock %}
