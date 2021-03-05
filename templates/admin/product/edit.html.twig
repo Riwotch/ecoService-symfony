@@ -21,6 +21,7 @@
                 <p>Ajouté le : {{ product.createdAt|date('d-m-Y') }}</p>
                 <p>Modifié le : {{ product.ModifiedAt|date('d-m-Y') }}</p>
                 {{ form_start(form) }}
+                {{ form_row(form.name) }}
                 {{ form_row(form.category) }}
                 {{ form_rest(form) }}
                 <button class="btn btn-secondary">Modifier</button>

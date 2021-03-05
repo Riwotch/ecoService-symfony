@@ -18,7 +18,7 @@
     <div style="margin-top: 150px;">
     {% if role[0] == 'ROLE_ORDER' %}
         <p>Admin</p>
-        <a href="" class="btn btn-secondary">Voir les utilisateurs</a>
+        <a href="" class="btn btn-secondary disabled">Voir les utilisateurs</a>
         <a href="{{ path('admin.product.index') }}" class="btn btn-secondary">Voir les produits</a>
         <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir les ordres</a>
     {% endif %}
@@ -31,7 +31,7 @@
         <a href="{{ path('admin.product.index') }}">Voir tous les produits</a>
     {% endif %}
 
-    {% if role[0] == 'ROLE_ADMIN' %}
+    {% if role[0] == 'ROLE_ORDER' %}
         <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir tous les ordres</a>
     {% endif %}
     </div>

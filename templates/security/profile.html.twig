@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service -
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="../../css/app.css">
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        {{ form_start(formUpdate) }}
+
+        {{ form_end(formUpdate) }}
+        <button class="btn btn-secondary">Modifier</button>
+    </div>
+{% endblock %}
