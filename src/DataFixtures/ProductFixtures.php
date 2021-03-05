@@ -20,7 +20,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $event = new Product();
             try {
                 $randomDate = new \DateTime($faker->date('Y-m-d'));
-                $randomDate = new \DateTime($faker->dateTimeInInterval('-10 days', '+ 20 days', null)->format('Y-m-d'));
+                $randomDate = new \DateTime($faker->dateTimeInInterval('-10 days', '+0 days', null)->format('Y-m-d'));
             } catch (\Exception $e) {
                 $randomDate = new \DateTime("2021-05-15");
             }
@@ -31,8 +31,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setName($faker->sentence(3, true))
                 ->setModifiedAt($randomDate)
                 ->setCreatedAt($randomDate )
-                ->setImg("https://mdbootstrap.com/img/new/standard/nature/" . $faker->numberBetween(100, 150) . ".jpg")
-                ->setPrice($faker->randomFloat(2, 0, 100))
+                ->setImg("img" . $faker->numberBetween(1, 10) . ".jpg")
+                ->setPrice($faker->randomFloat(2, 5, 30))
                 ->setQty($faker->numberBetween(0,60))
                 ->setDescription($faker->realText($faker->numberBetween(101, 549)))
                 ->setCategory($category);
