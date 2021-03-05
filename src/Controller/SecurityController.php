@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\RegistrationType;
 use App\Entity\User;
 use App\Form\UserType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,20 +60,22 @@ class SecurityController extends AbstractController
      * @Route ("/profil/update", name="security.update")
      * @param Request $request
      * @param Security $security
+     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function update(Request $request, Security $security): Response
+    public function update(Request $request, Security $security, EntityManagerInterface $em): Response
     {
+
         $user = $security->getUser();
         $formUpdate = $this->createForm(UserType::class, $user);
         $formUpdate->handleRequest($request);
         if($formUpdate->isSubmitted() && $formUpdate->isValid())
         {
-            $user->setModifiedAt(new DateTime());
-            $this->em->persist($user);
-            $this->em->flush();
-            return $this->redirectToRoute('security.update');
+           $user->setModifiedAt(new \DateTime('now'));
+           $em->flush();
+           return $this->redirectToRoute('security.update');
         }
+
         return $this->render('security/profile.html.twig', [
             'user' => $user,
             'formUpdate' => $formUpdate->createView()

@@ -15,24 +15,26 @@
 {% endblock %}
 
 {% block body %}
-    <div style="margin-top: 150px;">
-    {% if role[0] == 'ROLE_ORDER' %}
-        <p>Admin</p>
-        <a href="" class="btn btn-secondary disabled">Voir les utilisateurs</a>
-        <a href="{{ path('admin.product.index') }}" class="btn btn-secondary">Voir les produits</a>
-        <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir les ordres</a>
-    {% endif %}
+    <div class="row" style="margin-top: 85px;">
+        <div class="col-3 offset-4">
+            {% if role[0] == 'ROLE_ADMIN' %}
+                <p>Admin</p>
+                <a href="{{ path('admin.product.index') }}" class="btn btn-secondary">Voir les produits</a>
+                <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir les commandes</a>
+                <a href="" class="btn btn-secondary disabled">Voir les utilisateurs</a>
+            {% endif %}
 
-    {% if role[0] == 'ROLE_SERVICE' %}
-        <a href="">Voir tous les services</a>
-    {% endif %}
+            {% if role[0] == 'ROLE_SERVICE' %}
+                <a href="">Voir tous les services</a>
+            {% endif %}
 
-    {% if role[0] == 'ROLE_PRODUCT' %}
-        <a href="{{ path('admin.product.index') }}">Voir tous les produits</a>
-    {% endif %}
+            {% if role[0] == 'ROLE_PRODUCT' %}
+                <a href="{{ path('admin.product.index') }}">Voir tous les produits</a>
+            {% endif %}
 
-    {% if role[0] == 'ROLE_ORDER' %}
-        <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir tous les ordres</a>
-    {% endif %}
+            {% if role[0] == 'ROLE_ORDER' %}
+                <a href="{{ path('admin.order.index') }}" class="btn btn-secondary">Voir tous les ordres</a>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

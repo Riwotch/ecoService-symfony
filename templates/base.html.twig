@@ -54,6 +54,9 @@
                         </li>
                         {% else %}
                         <li class="nav-item">
+                            <a class="nav-link configuration" href="{{ path('security.update', {id: app.user.id }) }}" ><b>Profil</b></a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link configuration" href="{{ path('security.logout') }}" ><i class="fas fa-sign-out-alt"></i><B>Déconnexion</B></a>
                         </li>
                         {% endif %}

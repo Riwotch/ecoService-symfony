@@ -15,10 +15,30 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center">
-        {{ form_start(formUpdate) }}
+    <div class="row">
+        <div class="col-2 offset-4">
+            <h4>Profil</h4>
+            {{ form_start(formUpdate) }}
+                {{ form_row(formUpdate.first_name) }}
+                {{ form_row(formUpdate.last_name) }}
+                {{ form_row(formUpdate.mail) }}
+                {{ form_row(formUpdate.address1) }}
+                {{ form_row(formUpdate.address2) }}
+        </div>
 
-        {{ form_end(formUpdate) }}
-        <button class="btn btn-secondary">Modifier</button>
+        <div class="col-2">
+            <h4>Profil</h4>
+            {{ form_row(formUpdate.city) }}
+            {{ form_row(formUpdate.zip_code) }}
+            {{ form_row(formUpdate.country) }}
+            {{ form_row(formUpdate.phone) }}
+            <button class="btn btn-grey">Modifier</button>
+            {{ form_end(formUpdate) }}
+        </div>
     </div>
+    <style>
+        input{
+            width: 18%;
+        }
+    </style>
 {% endblock %}
