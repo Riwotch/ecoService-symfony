@@ -23,7 +23,7 @@
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark success-color-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark success-color-dark mb-3">
                 <a href="{{ path('home') }}" class="navbar-brand logo"><img src="{{ asset('ressources/img/Logo4.png') }}" width="120" height="35"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicNav" aria-controls="basicNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link configuration" href="{{ path('home.help') }}"><i class="fas fa-question"></i><B>Aide</B></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link configuration" href="{{ path('cart.index') }}" ><i class="fas fa-shopping-cart"></i><B>Panier</B></a>
+                        </li>
                         {% if not app.user %}
                         <li class="nav-item">
                             <a class="nav-link configuration" href="{{ path('security.login') }}"><i class="fas fa-sign-in-alt"></i><B>Connexion</B></a>
@@ -50,9 +53,6 @@
                             <a class="nav-link configuration" href="{{ path('security.registration') }}"><i class="fas fa-user-plus"></i><B>Inscription</B></a>
                         </li>
                         {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link configuration" href="{{ path('cart.index') }}" ><i class="fas fa-shopping-cart"></i><B>Panier</B></a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link configuration" href="{{ path('security.logout') }}" ><i class="fas fa-sign-out-alt"></i><B>Déconnexion</B></a>
                         </li>

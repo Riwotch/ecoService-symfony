@@ -46,7 +46,7 @@ class AdminOrderController extends AbstractController
      */
     public function edit(Order $order, Request $rqt) : Response
     {
-        $currentStatus = $order->getOrderStatus();
+
         $orderList = $order->getOrderList();
 
         dump($order);
@@ -54,18 +54,13 @@ class AdminOrderController extends AbstractController
         foreach($orderList as $item){
             $total += (float)$item['subtotal'];
         }
-
-
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($rqt);
-        if ($form->isSubmitted() )
+        if ($form->isSubmitted() && $form->isValid())
         {
-            if ($form->isValid()){
-                $this->em->flush();
-                return $this->redirectToRoute('admin.order.index');
-            }
-            //if ($order->getOrderStatus()->getId() != $currentStatus->getId())
-
+            $order->setModifiedAt(new \DateTime());
+            $this->em->flush();
+            return $this->redirectToRoute('admin.order.index');
         }
 
         return $this->render('admin/order/edit.html.twig', [

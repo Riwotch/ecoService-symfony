@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    Eco-Service - Services
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="../../css/formulaire-apporter.css">
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="container">
+        <h1 class="radio-famille">1. Choisir la famille de votre appareil</h1>
+        <div id="container-formulaire-apporter">
+            <!-- Card informatique -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/informatique.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Informatiques, bureautiques et telecoms</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="informatique" name="RadioFormulaire" value="Informatique" required>
+                        <label class="form-check-label" for="informatique"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- Card impression -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/impression.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Infra Impression, réseaux et monétique</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="impression" name="RadioFormulaire" value="Impression" required>
+                        <label class="form-check-label" for="impression"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- Card alimentaire -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/alimentaire.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Métiers de bouche et alimentaire</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="alimentaire" name="RadioFormulaire" value="Alimentaire" required>
+                        <label class="form-check-label" for="alimentaire"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- Card sport -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/sport.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Équipements de culture, loisisr et sport</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="sport" name="RadioFormulaire" value="Sport" required>
+                        <label class="form-check-label" for="sport"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="container-formulaire-apporter">
+            <!-- Card outils -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/outils.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Outils et insdustrie</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="outils" name="RadioFormulaire" value="Outils" required>
+                        <label class="form-check-label" for="outils"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- Card climatisation -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/climatisation.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Eau, air et climatisation</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="climatisation" name="RadioFormulaire" value="Climatisation" required>
+                        <label class="form-check-label" for="climatisation"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- Card entretien -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/entretien.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">Entretiens et soins</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="entretien" name="RadioFormulaire" value="Entretien" required>
+                        <label class="form-check-label" for="entretien"></label>
+                    </div>
+                </div>
+            </div>
+            <!-- Card WEeeTRI -->
+            <div class="card size">
+                <!-- Image -->
+                <img class="card-img-top img-cat" src="{{ asset('ressources/img/WEeeTRI.png') }}" alt="">
+                <!-- Contenu -->
+                <div class="card-body">
+                    <!-- Texte -->
+                    <p class="text-cat">WEeeTRI et autres familles</p>
+                    <div class="radio-cat">
+                        <input type="radio" class="form-check-input" id="WEeeTRI" name="RadioFormulaire" value="WEeeTRI" required>
+                        <label class="form-check-label" for="WEeeTRI"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="formulaire-2 mt-4">
+            <div class="form-type">
+                <h3>2. Préciser le type d'appareil</h3>
+                <input type="text" name="type" class="caract-input" required>
+            </div>
+            <div class="form-quantite">
+                <h3>3. Indiquer la quantité à recycler</h3>
+                <input type="number" min="1" max="9999" name="quantite" value="Quantite" class="caract-input" required>
+            </div>
+            <div class=form-poids>
+                <h3>4. Indiquer le poids total<h3>
+                        <input type="number" min="1" name="poids" value="Poids" class="caract-input" required>
+            </div>
+        </div>
+        <hr>
+        <div class="posbut">
+            <button type="submit" class="btn btn-dark-green">Valider</button>
+            <button type="reset" class="btn btn-danger">Effacer</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -65,8 +65,11 @@ class CartController extends AbstractController
 
         foreach ($cart as $id=>$qty){
             $product = $this->productRepo->find($id);
+
+            //dd($product->getCategory()->getName());
             $cartWithData[] = [
                 'id' => $product->getId(),
+                'category' => $product->getCategory()->getName(),
                 'name' => $product->getName(),
                 'slug' =>$product->getSlug(),
                 'price' => $product->getPrice(),

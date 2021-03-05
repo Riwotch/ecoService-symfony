@@ -1,0 +1,72 @@
+.logo img {
+    width: 100px;
+}
+.configuration {
+    margin-left: 10px;
+}
+.size {
+    width: 370px;
+    height: 250px;
+}
+.img-cat {
+    width: 150px;
+    margin-left: 110px;
+}
+.text-cat {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+#container-formulaire-apporter {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 15px;
+    align-items: center;
+}
+.radio-cat {
+    text-align: center;
+}
+.form-check-input[type="radio"]:checked+label:after, 
+.form-check-input[type="radio"].with-gap:checked+label:after, 
+label.btn input[type="radio"]:checked+label:after, 
+label.btn input[type="radio"].with-gap:checked+label:after {
+    background-color: #007E33 !important;
+}
+.form-check-input[type="radio"]:checked+label:after, 
+.form-check-input[type="radio"].with-gap:checked+label:before, 
+.form-check-input[type="radio"].with-gap:checked+label:after, 
+label.btn input[type="radio"]:checked+label:after, label.btn input[type="radio"].with-gap:checked+label:before, 
+label.btn input[type="radio"].with-gap:checked+label:after {
+    border: 2px solid #007E33 !important;
+}
+.custom-control-input:checked~.custom-control-label::before {
+    border-color: #007E33 !important;
+    background-color: #007E33 !important;
+}
+.radio-famille {
+    text-align: center;
+}
+.caract-input {
+    outline: none;
+    width: 150px;
+    height: 30px;
+    font-size: 15px;
+}
+.formulaire-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.form-type {
+    text-align: center;
+}
+.form-quantite {
+    text-align: center;
+}
+.form-poids {
+    text-align: center;
+}
+.posbut {
+    text-align: center;
+    margin-top: 10px;
+}

@@ -29,7 +29,7 @@
                                 <tr>
                                     <td class="col-sm-8 col-md-6">
                                         <div class="media">
-                                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ item.img }}" style="width: 72px; height: 72px;"> </a>
+                                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="../../{{ imagepath ~ item.img }}" style="width: 72px; height: 72px;"> </a>
                                             <div class="media-body">
                                                 <h4 class="media-heading"><a href="{{ path('product.show',{'id': item.id, 'slug': '' } ) }}">{{ item.name }}</a></h4>
                                                 <h5 class="media-heading"> par <a href="#">Eco-Service</a></h5>
